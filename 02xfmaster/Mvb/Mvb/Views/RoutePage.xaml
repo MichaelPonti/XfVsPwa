@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:ctrls="clr-namespace:Mvb.Controls;assembly=Mvb"
+	Title="Route"
+	x:Class="Mvb.Views.RoutePage">
+
+
+	<AbsoluteLayout>
+
+		<ctrls:RouteMap x:Name="map"
+						AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0"
+						AbsoluteLayout.LayoutFlags="All"
+						MapType="Street"
+						IsShowingUser="True" />
+
+
+
+	</AbsoluteLayout>
+</ContentPage>

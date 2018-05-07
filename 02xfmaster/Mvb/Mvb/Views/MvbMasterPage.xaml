@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="Mvb.Views.MvbMasterPage"
+	xmlns:h="clr-namespace:MyXamarinUtils.Helpers;assembly=MyXamarinUtils"
+	xmlns:converters="clr-namespace:Mvb.Converters;assembly=Mvb"
+	xmlns:b="clr-namespace:MyXamarinUtils.Behaviors;assembly=MyXamarinUtils"
+	Title="METROVAN BUS BUDDY">
+
+	<MasterDetailPage.Resources>
+		<ResourceDictionary>
+			<converters:MenuItemTypeConverter x:Key="menuImageConverter" />
+
+			<Style x:Key="MenuItemLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource MontserratRegularLabelStyle}">
+				<Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+				<Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+			</Style>
+
+		</ResourceDictionary>
+	</MasterDetailPage.Resources>
+
+	<MasterDetailPage.MasterBehavior>
+		<h:OnCustomPlatform x:TypeArguments="MasterBehavior" Windows="Popover" />
+	</MasterDetailPage.MasterBehavior>
+
+	<MasterDetailPage.Master>
+		<ContentPage Title="MENU">
+			<ContentPage.BackgroundColor>
+				<h:OnCustomPlatform
+					x:TypeArguments="Color" 
+					Android="{StaticResource BlueColor}" 
+					iOS="{StaticResource BlueColor}" 
+					Windows="{StaticResource BlueColor}" 
+					WinPhone="{StaticResource BlueColor}" />
+			</ContentPage.BackgroundColor>
+
+			<Grid>
+				<Grid.BackgroundColor>
+					<h:OnCustomPlatform
+						x:TypeArguments="Color"
+						Android="{StaticResource BlueColor}"
+						iOS="{StaticResource BlueColor}"
+						Windows="{StaticResource BlueColor}"
+						WinPhone="{StaticResource BlueColor}" />
+				</Grid.BackgroundColor>
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+
+				<Grid>
+					<Grid.BackgroundColor>
+						<h:OnCustomPlatform
+							x:TypeArguments="Color"
+							Android="{StaticResource BlueColor}"
+							iOS="{StaticResource BlueColor}"
+							Windows="{StaticResource BlueColor}"
+							WinPhone="{StaticResource BlueColor}" />
+					</Grid.BackgroundColor>
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Image Grid.Row="2" HorizontalOptions="End" VerticalOptions="End">
+						<Image.Source>
+							<h:OnCustomPlatform
+								x:TypeArguments="ImageSource"
+								Android="menu_bg.png"
+								iOS="menu_logo.png"
+								Windows="Assets/menu_logo.png"
+								WinPhone="Assets/menu_logo.png" />
+						</Image.Source>
+
+						<Image.Aspect>
+							<h:OnCustomPlatform
+								x:TypeArguments="Aspect"
+								Android="AspectFit"
+								iOS="AspectFit"
+								WinPhone="AspectFit"
+								Windows="AspectFit" />
+						</Image.Aspect>
+					</Image>
+
+
+					<StackLayout Orientation="Vertical">
+						<StackLayout.Margin>
+							<h:OnCustomPlatform
+								x:TypeArguments="Thickness"
+								Android="8"
+								iOS="8,60,8,0"
+								WinPhone="8,40,8,0"
+								Windows="8" />
+						</StackLayout.Margin>
+						<Label Text="METRO VAN BUS BUDDY" TextColor="{StaticResource WhiteColor}" />
+						<Label Text="Michael Ponti" TextColor="{StaticResource WhiteColor}" />
+					</StackLayout>
+
+					<ListView Grid.Row="1" Grid.RowSpan="2"
+							  x:Name="menuItems"
+							  ItemsSource="{Binding MenuItems}"
+							  b:ItemTappedCommandListView.ItemTappedCommand="{Binding CommandNavigate}"
+							  SeparatorVisibility="None"
+							  BackgroundColor="Transparent">
+						<ListView.Margin>
+							<h:OnCustomPlatform
+								x:TypeArguments="Thickness"
+								Android="8,0"
+								iOS="8,40"
+								Windows="16,0,16,0"
+								WinPhone="8,20" />
+						</ListView.Margin>
+
+						<ListView.ItemTemplate>
+							<DataTemplate>
+								<ViewCell>
+									<StackLayout Orientation="Horizontal">
+										<StackLayout.Margin>
+											<h:OnCustomPlatform
+												x:TypeArguments="Thickness"
+												Windows="0,8" />
+										</StackLayout.Margin>
+										<StackLayout.Triggers>
+											<DataTrigger TargetType="StackLayout" Binding="{Binding IsEnabled,Mode=TwoWay}" Value="False">
+												<Setter Property="Opacity" Value="0.6" />
+											</DataTrigger>
+										</StackLayout.Triggers>
+
+										<Image Source="{Binding MenuItem,Converter={StaticResource menuImageConverter}}"
+											   Aspect="AspectFit"
+											   WidthRequest="22"
+											   HeightRequest="22"
+											   Margin="10,0"
+											   VerticalOptions="Center" />
+
+										<Label Text="{Binding Title}"
+											   Style="{StaticResource MenuItemLabelStyle}"
+											   HorizontalOptions="Center"
+											   VerticalOptions="Center" />
+									</StackLayout>
+								</ViewCell>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+					
+				</Grid>
+			</Grid>
+						
+		</ContentPage>
+	</MasterDetailPage.Master>
+</MasterDetailPage>
