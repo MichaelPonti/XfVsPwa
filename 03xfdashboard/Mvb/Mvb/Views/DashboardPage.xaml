@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:b="clr-namespace:MyXamarinUtils.Behaviors;assembly=MyXamarinUtils"
+	xmlns:h="clr-namespace:MyXamarinUtils.Helpers;assembly=MyXamarinUtils"
+	Title="DASHBOARD"
+	x:Class="Mvb.Views.DashboardPage">
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<Style x:Key="favlabelstyle" BasedOn="{StaticResource BaseLabelStyle}" TargetType="Label">
+				<Setter Property="VerticalOptions" Value="Center" />
+				<Setter Property="TextColor" Value="{StaticResource BlueColor}" />
+			</Style>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	<ContentPage.Content>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+
+			<Label Grid.Row="0" Text="My Favorite Stops" Margin="0,0,0,4" HorizontalOptions="Center" />
+
+			<ListView Grid.Row="1" ItemsSource="{Binding Stops}" b:ItemTappedCommandListView.ItemTappedCommand="{Binding CommandGoToStop}">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<Grid Margin="8,4">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="3*" />
+								</Grid.ColumnDefinitions>
+
+								<Image Grid.Row="0" Grid.Column="0" Margin="4,0">
+									<Image.Source>
+										<h:OnCustomPlatform x:TypeArguments="ImageSource" Android="busstop.png" iOS="busstop.png" Windows="assets/favbusstop.png" WinPhone="assets/favbusstop.png" WinTablet="assets/favbusstop.png" />
+									</Image.Source>
+								</Image>
+								<Label Grid.Row="0" Grid.Column="1" Text="{Binding StopNo}" Style="{StaticResource favlabelstyle}" />
+								<Label Grid.Row="0" Grid.Column="2" Text="{Binding Name}" Style="{StaticResource favlabelstyle}" />
+								<Label Grid.Row="0" Grid.Column="3" Text="{Binding StreetLocation}" Style="{StaticResource favlabelstyle}" />
+							</Grid>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+
+
+
+			<Label Grid.Row="2" Text="My Favorite Routes" Margin="0,4" HorizontalOptions="Center" />
+
+			<ListView Grid.Row="3" ItemsSource="{Binding Routes}" b:ItemTappedCommandListView.ItemTappedCommand="{Binding CommandGoToRoute}">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<Grid Margin="8,4">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="3*" />
+									<ColumnDefinition Width="3*" />
+								</Grid.ColumnDefinitions>
+
+								<Image Grid.Row="0" Grid.Column="0" Margin="4,0">
+									<Image.Source>
+										<h:OnCustomPlatform x:TypeArguments="ImageSource" Android="routewest.png" iOS="routewest.png" Windows="assets/favroute.png" WinPhone="assets/favroute.png" WinTablet="assets/favroute.png" />
+									</Image.Source>
+								</Image>
+								<Label Grid.Row="0" Grid.Column="1" Text="{Binding RouteNo}" Style="{StaticResource favlabelstyle}" />
+								<Label Grid.Row="0" Grid.Column="2" Text="{Binding Name}" Style="{StaticResource favlabelstyle}" />
+								<Label Grid.Row="0" Grid.Column="3" Text="{Binding OperatingCompany}" Style="{StaticResource favlabelstyle}" />
+
+							</Grid>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+				
+			</ListView>
+
+
+			<Grid Grid.Row="0" Grid.RowSpan="4" BackgroundColor="Black" Opacity="0.8" IsVisible="{Binding IsBusy}" />
+			<ActivityIndicator Grid.Row="0" Grid.RowSpan="4" HorizontalOptions="Center" VerticalOptions="Center" 
+							   IsRunning="{Binding IsBusy}" HeightRequest="150" WidthRequest="150" Color="White" />
+
+		</Grid>
+	</ContentPage.Content>
+</ContentPage>
